@@ -1,0 +1,34 @@
+# retrievium
+
+> A Go library providing 5 searching algorithm implementations behind a single `Searcher` interface. One interface. No haystack required.
+
+retrievium is importable as `github.com/danielriddell21/retrievium`. It has no external dependencies.
+
+The central interface:
+
+```go
+type Searcher interface {
+    Search(haystack []int, target int) int  // returns index of target, or -1 if not found
+    Name() string                           // human-readable algorithm name
+}
+```
+
+BinarySearcher, TernarySearcher, FibonacciSearcher, and JumpSearcher require the input slice to be sorted in ascending order. LinearSearcher works on any input.
+
+## Docs
+
+- [pkg.go.dev reference](https://pkg.go.dev/github.com/danielriddell21/retrievium)
+- [README](https://github.com/danielriddell21/retrievium/blob/main/README.md)
+- [Examples](https://github.com/danielriddell21/retrievium/blob/main/examples/EXAMPLES.md)
+- [Benchmarks](https://github.com/danielriddell21/retrievium/blob/main/docs/BENCHMARKS.md)
+- [Complexity chart](https://github.com/danielriddell21/retrievium/blob/main/docs/COMPLEXITY.md)
+
+## Algorithms
+
+| Searcher | Time | Space | Requires sorted input |
+|---|---|---|---|
+| LinearSearcher | O(n) | O(1) | No |
+| BinarySearcher | O(log n) | O(1) | Yes |
+| TernarySearcher | O(log₃ n) | O(1) | Yes |
+| FibonacciSearcher | O(log n) | O(1) | Yes |
+| JumpSearcher | O(√n) | O(1) | Yes |
