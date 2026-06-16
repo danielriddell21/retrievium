@@ -1,14 +1,20 @@
 package retrievium
 
-// FibonacciSearcher implements Fibonacci Search.
-// Uses Fibonacci numbers to divide the search range, avoiding division and
-// working well when sequential memory access is costly. Requires the input
-// slice to be sorted in ascending order.
-// Time: O(log n)  Space: O(1)
+// FibonacciSearcher searches a sorted slice using Fibonacci search, dividing
+// the search range with Fibonacci numbers instead of halving it. It implements
+// the [Searcher] interface and requires haystack to be sorted in ascending
+// order.
+//
+// Avoiding division makes Fibonacci search useful when sequential memory
+// access is costly. It runs in O(log n) time and O(1) space.
 type FibonacciSearcher struct{}
 
+// Name returns the human-readable name of the algorithm, "Fibonacci Search".
 func (FibonacciSearcher) Name() string { return "Fibonacci Search" }
 
+// Search returns the index of target in haystack, or -1 if target is not
+// present. haystack must be sorted in ascending order; the result is
+// unspecified otherwise.
 func (FibonacciSearcher) Search(haystack []int, target int) int {
 	n := len(haystack)
 	if n == 0 {

@@ -1,14 +1,18 @@
 package retrievium
 
-// TernarySearcher implements Ternary Search.
-// Divides the search interval into three equal parts each iteration, discarding
-// the two-thirds that cannot contain the target. Requires the input slice to be
-// sorted in ascending order.
-// Time: O(log₃ n)  Space: O(1)
+// TernarySearcher searches a sorted slice using ternary search, dividing the
+// search interval into three equal parts each iteration. It implements the
+// [Searcher] interface and requires haystack to be sorted in ascending order.
+//
+// Ternary search runs in O(log₃ n) time and O(1) space.
 type TernarySearcher struct{}
 
+// Name returns the human-readable name of the algorithm, "Ternary Search".
 func (TernarySearcher) Name() string { return "Ternary Search" }
 
+// Search returns the index of target in haystack, or -1 if target is not
+// present. haystack must be sorted in ascending order; the result is
+// unspecified otherwise.
 func (TernarySearcher) Search(haystack []int, target int) int {
 	lo, hi := 0, len(haystack)-1
 	for lo <= hi {
