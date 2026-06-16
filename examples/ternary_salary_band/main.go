@@ -15,15 +15,15 @@ import (
 func main() {
 	// Sorted annual salaries (£) for each pay grade in a company.
 	payscale := []int{
-		22000, // Grade 1
-		26000, // Grade 2
-		30000, // Grade 3
-		35000, // Grade 4
-		42000, // Grade 5
-		50000, // Grade 6
-		60000, // Grade 7
-		72000, // Grade 8
-		88000, // Grade 9
+		22000,  // Grade 1
+		26000,  // Grade 2
+		30000,  // Grade 3
+		35000,  // Grade 4
+		42000,  // Grade 5
+		50000,  // Grade 6
+		60000,  // Grade 7
+		72000,  // Grade 8
+		88000,  // Grade 9
 		110000, // Grade 10
 	}
 
