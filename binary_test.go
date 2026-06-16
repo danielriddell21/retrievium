@@ -67,3 +67,20 @@ func ExampleBinarySearcher() {
 	// Output:
 	// 3
 }
+
+// ExampleBinarySearcher_Search shows that Search reports the index of a value
+// that is present and -1 for one that is absent.
+func ExampleBinarySearcher_Search() {
+	s := retrievium.BinarySearcher{}
+	fmt.Println(s.Search([]int{1, 3, 5, 7, 9}, 5)) // present
+	fmt.Println(s.Search([]int{1, 3, 5, 7, 9}, 4)) // absent
+	// Output:
+	// 2
+	// -1
+}
+
+// ExampleBinarySearcher_Name prints the algorithm's human-readable name.
+func ExampleBinarySearcher_Name() {
+	fmt.Println(retrievium.BinarySearcher{}.Name())
+	// Output: Binary Search
+}
