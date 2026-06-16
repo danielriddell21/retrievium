@@ -2,15 +2,20 @@ package retrievium
 
 import "math"
 
-// JumpSearcher implements Jump Search.
-// Jumps ahead by √n steps to find the block containing the target, then
-// performs a linear scan within that block. Requires the input slice to be
-// sorted in ascending order.
-// Time: O(√n)  Space: O(1)
+// JumpSearcher searches a sorted slice using jump search, advancing in fixed
+// blocks of √n elements to find the block containing the target and then
+// scanning within it. It implements the [Searcher] interface and requires
+// haystack to be sorted in ascending order.
+//
+// Jump search runs in O(√n) time and O(1) space.
 type JumpSearcher struct{}
 
+// Name returns the human-readable name of the algorithm, "Jump Search".
 func (JumpSearcher) Name() string { return "Jump Search" }
 
+// Search returns the index of target in haystack, or -1 if target is not
+// present. haystack must be sorted in ascending order; the result is
+// unspecified otherwise.
 func (JumpSearcher) Search(haystack []int, target int) int {
 	n := len(haystack)
 	if n == 0 {
