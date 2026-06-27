@@ -42,7 +42,7 @@ func (FibonacciSearcher) Search(haystack []int, target int) int {
 			offset = i
 		case haystack[i] > target:
 			fibM = fibMm2
-			fibMm1 = fibMm1 - fibMm2
+			fibMm1 -= fibMm2
 			fibMm2 = fibM - fibMm1
 		default:
 			return i
