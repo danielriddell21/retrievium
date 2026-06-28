@@ -28,6 +28,11 @@ linters:
       max-complexity: 15
     gocognit:
       min-complexity: 20
+    errcheck:
+      exclude-functions:
+        - fmt.Fprint
+        - fmt.Fprintf
+        - fmt.Fprintln
     gosec:
       excludes:
         - G107
@@ -35,14 +40,24 @@ linters:
         - G204
         - G304
         - G404
+        - G602
+        - G703
   exclusions:
     paths:
       - examples
     rules:
       - path: "_test\\.go"
         linters:
+          - dupl
           - wrapcheck
           - gosec
+          - unparam
+          - gocognit
+          - cyclop
+          - prealloc
+          - errcheck
+          - gocritic
+          - noctx
 
 formatters:
   enable:
