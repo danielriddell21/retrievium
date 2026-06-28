@@ -13,6 +13,7 @@ linters:
     - nilerr
     - noctx
     - prealloc
+    - revive
     - thelper
     - unconvert
     - unparam
@@ -28,6 +29,10 @@ linters:
       max-complexity: 15
     gocognit:
       min-complexity: 20
+    revive:
+      rules:
+        - name: exported
+          arguments: [disableStutteringCheck]
     errcheck:
       exclude-functions:
         - fmt.Fprint
@@ -46,8 +51,12 @@ linters:
     paths:
       - examples
     rules:
+      - path: (^|/)(internal|cmd)/
+        linters:
+          - revive
       - path: "_test\\.go"
         linters:
+          - revive
           - dupl
           - wrapcheck
           - gosec
