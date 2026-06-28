@@ -18,10 +18,10 @@ BinarySearcher, TernarySearcher, FibonacciSearcher, and JumpSearcher require the
 ## Docs
 
 - [pkg.go.dev reference](https://pkg.go.dev/github.com/danielriddell21/retrievium)
-- [README](https://github.com/danielriddell21/retrievium/blob/main/README.md)
-- [Examples](https://github.com/danielriddell21/retrievium/blob/main/examples/EXAMPLES.md)
-- [Benchmarks](https://github.com/danielriddell21/retrievium/blob/main/docs/BENCHMARKS.md)
-- [Complexity chart](https://github.com/danielriddell21/retrievium/blob/main/docs/COMPLEXITY.md)
+- [README](https://github.com/danielriddell21/retrievium/blob/trunk/README.md)
+- [Examples](https://github.com/danielriddell21/retrievium/blob/trunk/examples/EXAMPLES.md)
+- [Benchmarks](https://github.com/danielriddell21/retrievium/blob/trunk/docs/benchmarks.md)
+- [Complexity chart](https://github.com/danielriddell21/retrievium/blob/trunk/docs/complexity.md)
 
 ## Algorithms
 

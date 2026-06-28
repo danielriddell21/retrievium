@@ -52,7 +52,6 @@ type Searcher interface {
 
 Runnable examples for every algorithm are in the [`examples/`](examples/EXAMPLES.md) directory.
 
-## Docs
-
-- [Benchmark results](docs/BENCHMARKS.md)
-- [Complexity chart](docs/COMPLEXITY.md)
+## Documentation
+- [Benchmark results](docs/benchmarks.md)
+- [Complexity chart](docs/complexity.md)
