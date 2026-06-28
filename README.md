@@ -9,8 +9,7 @@ One interface. No haystack required.
 [![Go 1.26](https://img.shields.io/badge/go-1.26-blue)](https://go.dev)
 [![MIT License](https://img.shields.io/badge/licence-MIT-green)](LICENSE)
 
-## Installation
-
+## Install
 ```sh
 go get github.com/danielriddell21/retrievium@latest
 ```
