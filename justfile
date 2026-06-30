@@ -12,19 +12,10 @@ build:
 test:
     go test ./...
 
-# run the benchmarks
-[group('test')]
-bench:
-    go test -bench=. -benchmem ./...
-
 # run the linter
 [group('dev')]
 lint:
     golangci-lint run
-
-# full gate: lint + test + build. all must pass before committing
-[group('dev')]
-ci: lint test build
 
 # vet the code
 [group('dev')]
@@ -40,3 +31,12 @@ fmt:
 [group('dev')]
 tidy:
     go mod tidy
+
+# full gate: lint + test + build. all must pass before committing
+[group('dev')]
+ci: lint test build
+
+# run the benchmarks
+[group('test')]
+bench:
+    go test -bench=. -benchmem ./...
