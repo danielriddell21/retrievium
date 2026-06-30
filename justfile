@@ -2,6 +2,11 @@
 default:
     @just --list
 
+# build the library
+[group('build')]
+build:
+    go build ./...
+
 # run the tests
 [group('test')]
 test:
@@ -16,6 +21,10 @@ bench:
 [group('dev')]
 lint:
     golangci-lint run
+
+# full gate: lint + test + build. all must pass before committing
+[group('dev')]
+ci: lint test build
 
 # vet the code
 [group('dev')]
