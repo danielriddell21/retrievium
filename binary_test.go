@@ -8,7 +8,7 @@ import (
 )
 
 func TestBinarySearch(t *testing.T) {
-	s := retrievium.BinarySearcher{}
+	s := retrievium.BinarySearcher[int]{}
 	cases := []struct {
 		name     string
 		haystack []int
@@ -29,17 +29,20 @@ func TestBinarySearch(t *testing.T) {
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			got := s.Search(tc.haystack, tc.target)
-			if got != tc.want {
-				t.Errorf("Search(%v, %d) = %d, want %d", tc.haystack, tc.target, got, tc.want)
+			got, ok := s.Search(tc.haystack, tc.target)
+			switch {
+			case tc.want == -1 && ok:
+				t.Errorf("Search(%v, %d) = (%d, true), want not found", tc.haystack, tc.target, got)
+			case tc.want != -1 && (!ok || got != tc.want):
+				t.Errorf("Search(%v, %d) = (%d, %v), want (%d, true)", tc.haystack, tc.target, got, ok, tc.want)
 			}
 		})
 	}
 	t.Run("random n=1000", func(t *testing.T) {
 		data := sortedSlice(1000)
 		target := data[500]
-		got := s.Search(data, target)
-		if got == -1 {
+		got, ok := s.Search(data, target)
+		if !ok {
 			t.Errorf("Search did not find target %d in slice", target)
 		}
 		if data[got] != target {
@@ -49,7 +52,7 @@ func TestBinarySearch(t *testing.T) {
 }
 
 func BenchmarkBinarySearch(b *testing.B) {
-	s := retrievium.BinarySearcher{}
+	s := retrievium.BinarySearcher[int]{}
 	for _, size := range []int{100, 1000, 10000} {
 		data := sortedSlice(size)
 		target := data[size/2]
@@ -62,25 +65,25 @@ func BenchmarkBinarySearch(b *testing.B) {
 }
 
 func ExampleBinarySearcher() {
-	s := retrievium.BinarySearcher{}
+	s := retrievium.BinarySearcher[int]{}
 	fmt.Println(s.Search([]int{1, 3, 5, 7, 9}, 7))
 	// Output:
-	// 3
+	// 3 true
 }
 
 // ExampleBinarySearcher_Search shows that Search reports the index of a value
-// that is present and -1 for one that is absent.
+// that is present and false for one that is absent.
 func ExampleBinarySearcher_Search() {
-	s := retrievium.BinarySearcher{}
+	s := retrievium.BinarySearcher[int]{}
 	fmt.Println(s.Search([]int{1, 3, 5, 7, 9}, 5)) // present
 	fmt.Println(s.Search([]int{1, 3, 5, 7, 9}, 4)) // absent
 	// Output:
-	// 2
-	// -1
+	// 2 true
+	// 0 false
 }
 
 // ExampleBinarySearcher_Name prints the algorithm's human-readable name.
 func ExampleBinarySearcher_Name() {
-	fmt.Println(retrievium.BinarySearcher{}.Name())
+	fmt.Println(retrievium.BinarySearcher[int]{}.Name())
 	// Output: Binary Search
 }

@@ -1,0 +1,32 @@
+silent: false
+
+unleash:
+  threshold:
+    efficacy: 50        # ≥50% of tested mutants must be killed
+    mutant-coverage: 50 # skip mutants in code with <50% line coverage
+  exclude-files:
+    - "cmd/.*"
+
+mutants:
+  arithmetic-base:
+    enabled: true
+  conditionals-boundary:
+    enabled: true
+  conditionals-negation:
+    enabled: true
+  increment-decrement:
+    enabled: true
+  invert-assignments:
+    enabled: false
+  invert-bitwise:
+    enabled: false
+  invert-bwassign:
+    enabled: false
+  invert-negatives:
+    enabled: true
+  invert-logical:
+    enabled: true
+  invert-loopctrl:
+    enabled: false
+  remove-self-assignments:
+    enabled: false
