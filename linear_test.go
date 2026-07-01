@@ -9,7 +9,7 @@ import (
 )
 
 func TestLinearSearch(t *testing.T) {
-	s := retrievium.LinearSearcher{}
+	s := retrievium.LinearSearcher[int]{}
 	cases := []struct {
 		name     string
 		haystack []int
@@ -29,9 +29,12 @@ func TestLinearSearch(t *testing.T) {
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			got := s.Search(tc.haystack, tc.target)
-			if got != tc.want {
-				t.Errorf("Search(%v, %d) = %d, want %d", tc.haystack, tc.target, got, tc.want)
+			got, ok := s.Search(tc.haystack, tc.target)
+			switch {
+			case tc.want == -1 && ok:
+				t.Errorf("Search(%v, %d) = (%d, true), want not found", tc.haystack, tc.target, got)
+			case tc.want != -1 && (!ok || got != tc.want):
+				t.Errorf("Search(%v, %d) = (%d, %v), want (%d, true)", tc.haystack, tc.target, got, ok, tc.want)
 			}
 		})
 	}
@@ -42,8 +45,8 @@ func TestLinearSearch(t *testing.T) {
 			data[i] = r.IntN(2000) - 1000
 		}
 		target := data[r.IntN(len(data))]
-		got := s.Search(data, target)
-		if got == -1 {
+		got, ok := s.Search(data, target)
+		if !ok {
 			t.Errorf("Search did not find target %d in slice", target)
 		}
 		if data[got] != target {
@@ -53,7 +56,7 @@ func TestLinearSearch(t *testing.T) {
 }
 
 func BenchmarkLinearSearch(b *testing.B) {
-	s := retrievium.LinearSearcher{}
+	s := retrievium.LinearSearcher[int]{}
 	for _, size := range []int{100, 1000, 10000} {
 		data := sortedSlice(size)
 		target := data[size/2]
@@ -66,8 +69,8 @@ func BenchmarkLinearSearch(b *testing.B) {
 }
 
 func ExampleLinearSearcher() {
-	s := retrievium.LinearSearcher{}
+	s := retrievium.LinearSearcher[int]{}
 	fmt.Println(s.Search([]int{9, 3, 7, 1, 5}, 7))
 	// Output:
-	// 2
+	// 2 true
 }

@@ -5,12 +5,11 @@
 One interface. No haystack required.
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/danielriddell21/retrievium.svg)](https://pkg.go.dev/github.com/danielriddell21/retrievium)
-[![CI](https://github.com/danielriddell21/retrievium/actions/workflows/ci.yml/badge.svg)](https://github.com/danielriddell21/retrievium/actions/workflows/ci.yml)
-[![Go 1.25](https://img.shields.io/badge/go-1.25-blue)](https://go.dev)
+[![CI](https://github.com/danielriddell21/retrievium/actions/workflows/ci.yaml/badge.svg)](https://github.com/danielriddell21/retrievium/actions/workflows/ci.yaml)
+[![Go 1.26](https://img.shields.io/badge/go-1.26-blue)](https://go.dev)
 [![MIT License](https://img.shields.io/badge/licence-MIT-green)](LICENSE)
 
-## Installation
-
+## Install
 ```sh
 go get github.com/danielriddell21/retrievium@latest
 ```
@@ -20,23 +19,36 @@ go get github.com/danielriddell21/retrievium@latest
 ```go
 import "github.com/danielriddell21/retrievium"
 
-s := retrievium.BinarySearcher{}
-idx := s.Search([]int{1, 3, 5, 7, 9}, 7)
-// idx == 3
+s := retrievium.BinarySearcher[int]{}
+idx, ok := s.Search([]int{1, 3, 5, 7, 9}, 7)
+// idx == 3, ok == true
 fmt.Println(s.Name()) // "Binary Search"
+
+// Searchers are generic over any cmp.Ordered type:
+i, found := retrievium.BinarySearcher[string]{}.Search([]string{"apple", "kiwi", "pear"}, "kiwi")
+// i == 1, found == true
 ```
 
-Every searcher satisfies the `Searcher` interface:
+Every searcher satisfies the `Searcher` interface, generic over the element type:
 
 ```go
-type Searcher interface {
-    Search(haystack []int, target int) int
+type Searcher[E cmp.Ordered] interface {
+    Search(haystack []E, target E) (int, bool)
     Name() string
 }
 ```
 
-`Search` returns the **index** of the target, or **-1** if not present.
-`BinarySearcher`, `TernarySearcher`, `FibonacciSearcher`, and `JumpSearcher` require the input to be sorted in ascending order. `LinearSearcher` works on any input.
+`Search` returns the **index** of the target and a boolean reporting whether it
+was found (mirroring `slices.BinarySearch`). `BinarySearcher`, `TernarySearcher`,
+`FibonacciSearcher`, and `JumpSearcher` require the input to be sorted in
+ascending order. `LinearSearcher` works on any input.
+
+## Why not `slices.BinarySearch`?
+
+For production code, reach for the standard library — `slices.BinarySearch` and
+`slices.Index` are the right tool. retrievium exists for teaching and
+exploration: a single interface that lets you swap in and compare a family of
+search algorithms at runtime.
 
 ## Algorithms
 
@@ -52,7 +64,6 @@ type Searcher interface {
 
 Runnable examples for every algorithm are in the [`examples/`](examples/EXAMPLES.md) directory.
 
-## Docs
-
-- [Benchmark results](docs/BENCHMARKS.md)
-- [Complexity chart](docs/COMPLEXITY.md)
+## Documentation
+- [Benchmark results](docs/benchmarks.md)
+- [Complexity chart](docs/complexity.md)

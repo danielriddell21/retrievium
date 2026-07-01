@@ -8,7 +8,7 @@ import (
 )
 
 func TestFibonacciSearch(t *testing.T) {
-	s := retrievium.FibonacciSearcher{}
+	s := retrievium.FibonacciSearcher[int]{}
 	cases := []struct {
 		name     string
 		haystack []int
@@ -32,17 +32,20 @@ func TestFibonacciSearch(t *testing.T) {
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			got := s.Search(tc.haystack, tc.target)
-			if got != tc.want {
-				t.Errorf("Search(%v, %d) = %d, want %d", tc.haystack, tc.target, got, tc.want)
+			got, ok := s.Search(tc.haystack, tc.target)
+			switch {
+			case tc.want == -1 && ok:
+				t.Errorf("Search(%v, %d) = (%d, true), want not found", tc.haystack, tc.target, got)
+			case tc.want != -1 && (!ok || got != tc.want):
+				t.Errorf("Search(%v, %d) = (%d, %v), want (%d, true)", tc.haystack, tc.target, got, ok, tc.want)
 			}
 		})
 	}
 	t.Run("random n=1000", func(t *testing.T) {
 		data := sortedSlice(1000)
 		target := data[500]
-		got := s.Search(data, target)
-		if got == -1 {
+		got, ok := s.Search(data, target)
+		if !ok {
 			t.Errorf("Search did not find target %d in slice", target)
 		}
 		if data[got] != target {
@@ -52,7 +55,7 @@ func TestFibonacciSearch(t *testing.T) {
 }
 
 func BenchmarkFibonacciSearch(b *testing.B) {
-	s := retrievium.FibonacciSearcher{}
+	s := retrievium.FibonacciSearcher[int]{}
 	for _, size := range []int{100, 1000, 10000} {
 		data := sortedSlice(size)
 		target := data[size/2]
@@ -65,8 +68,8 @@ func BenchmarkFibonacciSearch(b *testing.B) {
 }
 
 func ExampleFibonacciSearcher() {
-	s := retrievium.FibonacciSearcher{}
+	s := retrievium.FibonacciSearcher[int]{}
 	fmt.Println(s.Search([]int{1, 3, 5, 7, 9}, 7))
 	// Output:
-	// 3
+	// 3 true
 }

@@ -48,13 +48,15 @@ func main() {
 	fmt.Printf("%-12s  %-7s  %s\n", "Call Number", "Index", "Title")
 	fmt.Println("------------  -------  -----")
 
-	s := retrievium.FibonacciSearcher{}
+	s := retrievium.FibonacciSearcher[int]{}
 	for _, cn := range queries {
-		idx := s.Search(callNumbers, cn)
+		idx, ok := s.Search(callNumbers, cn)
 		title := "not found"
-		if idx != -1 {
+		idxStr := "-"
+		if ok {
 			title = catalogue[idx].Title
+			idxStr = fmt.Sprintf("%d", idx)
 		}
-		fmt.Printf("%-12d  %-7d  %s\n", cn, idx, title)
+		fmt.Printf("%-12d  %-7s  %s\n", cn, idxStr, title)
 	}
 }

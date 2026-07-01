@@ -3,7 +3,7 @@ package retrievium_test
 import (
 	"fmt"
 	"math/rand/v2"
-	"sort"
+	"slices"
 
 	"github.com/danielriddell21/retrievium"
 )
@@ -14,24 +14,25 @@ func sortedSlice(n int) []int {
 	for i := range s {
 		s[i] = r.IntN(10000) - 5000
 	}
-	sort.Ints(s)
+	slices.Sort(s)
 	return s
 }
 
-// Every searcher satisfies the Searcher interface, so algorithms are interchangeable.
+// Every searcher satisfies Searcher[int], so algorithms are interchangeable.
 func Example() {
-	searchers := []retrievium.Searcher{
-		retrievium.BinarySearcher{},
-		retrievium.TernarySearcher{},
-		retrievium.FibonacciSearcher{},
+	searchers := []retrievium.Searcher[int]{
+		retrievium.BinarySearcher[int]{},
+		retrievium.TernarySearcher[int]{},
+		retrievium.FibonacciSearcher[int]{},
 	}
 	haystack := []int{1, 3, 5, 7, 9, 11}
 	target := 7
 	for _, s := range searchers {
-		fmt.Printf("%s: index %d\n", s.Name(), s.Search(haystack, target))
+		idx, ok := s.Search(haystack, target)
+		fmt.Printf("%s: index %d found %v\n", s.Name(), idx, ok)
 	}
 	// Output:
-	// Binary Search: index 3
-	// Ternary Search: index 3
-	// Fibonacci Search: index 3
+	// Binary Search: index 3 found true
+	// Ternary Search: index 3 found true
+	// Fibonacci Search: index 3 found true
 }

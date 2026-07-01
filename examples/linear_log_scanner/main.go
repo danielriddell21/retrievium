@@ -37,13 +37,15 @@ func main() {
 	fmt.Printf("%-5s  %-26s  %-7s  %s\n", "Code", "Meaning", "Index", "Result")
 	fmt.Println("-----  --------------------------  -------  ------")
 
-	s := retrievium.LinearSearcher{}
+	s := retrievium.LinearSearcher[int]{}
 	for _, q := range queries {
-		idx := s.Search(statusCodes, q.code)
+		idx, ok := s.Search(statusCodes, q.code)
 		result := "not present"
-		if idx != -1 {
+		idxStr := "-"
+		if ok {
 			result = fmt.Sprintf("first occurrence at index %d", idx)
+			idxStr = fmt.Sprintf("%d", idx)
 		}
-		fmt.Printf("%-5d  %-26s  %-7d  %s\n", q.code, q.meaning, idx, result)
+		fmt.Printf("%-5d  %-26s  %-7s  %s\n", q.code, q.meaning, idxStr, result)
 	}
 }

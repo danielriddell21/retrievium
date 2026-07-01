@@ -7,9 +7,9 @@ retrievium is importable as `github.com/danielriddell21/retrievium`. It has no e
 The central interface:
 
 ```go
-type Searcher interface {
-    Search(haystack []int, target int) int  // returns index of target, or -1 if not found
-    Name() string                           // human-readable algorithm name
+type Searcher[E cmp.Ordered] interface {
+    Search(haystack []E, target E) (int, bool) // index of target and whether it was found
+    Name() string                              // human-readable algorithm name
 }
 ```
 
@@ -18,10 +18,10 @@ BinarySearcher, TernarySearcher, FibonacciSearcher, and JumpSearcher require the
 ## Docs
 
 - [pkg.go.dev reference](https://pkg.go.dev/github.com/danielriddell21/retrievium)
-- [README](https://github.com/danielriddell21/retrievium/blob/main/README.md)
-- [Examples](https://github.com/danielriddell21/retrievium/blob/main/examples/EXAMPLES.md)
-- [Benchmarks](https://github.com/danielriddell21/retrievium/blob/main/docs/BENCHMARKS.md)
-- [Complexity chart](https://github.com/danielriddell21/retrievium/blob/main/docs/COMPLEXITY.md)
+- [README](https://github.com/danielriddell21/retrievium/blob/trunk/README.md)
+- [Examples](https://github.com/danielriddell21/retrievium/blob/trunk/examples/EXAMPLES.md)
+- [Benchmarks](https://github.com/danielriddell21/retrievium/blob/trunk/docs/benchmarks.md)
+- [Complexity chart](https://github.com/danielriddell21/retrievium/blob/trunk/docs/complexity.md)
 
 ## Algorithms
 
