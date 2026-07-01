@@ -43,13 +43,15 @@ func main() {
 	fmt.Printf("%-8s  %-10s  %-7s  %s\n", "Employee", "Salary (£)", "Index", "Grade")
 	fmt.Println("--------  ----------  -------  -------")
 
-	s := retrievium.TernarySearcher{}
+	s := retrievium.TernarySearcher[int]{}
 	for _, q := range queries {
-		idx := s.Search(payscale, q.salary)
+		idx, ok := s.Search(payscale, q.salary)
 		grade := "—"
-		if idx != -1 {
+		idxStr := "-"
+		if ok {
 			grade = fmt.Sprintf("Grade %d", idx+1)
+			idxStr = fmt.Sprintf("%d", idx)
 		}
-		fmt.Printf("%-8s  %-10d  %-7d  %s\n", q.name, q.salary, idx, grade)
+		fmt.Printf("%-8s  %-10d  %-7s  %s\n", q.name, q.salary, idxStr, grade)
 	}
 }

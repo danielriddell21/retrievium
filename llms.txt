@@ -7,9 +7,9 @@ retrievium is importable as `github.com/danielriddell21/retrievium`. It has no e
 The central interface:
 
 ```go
-type Searcher interface {
-    Search(haystack []int, target int) int  // returns index of target, or -1 if not found
-    Name() string                           // human-readable algorithm name
+type Searcher[E cmp.Ordered] interface {
+    Search(haystack []E, target E) (int, bool) // index of target and whether it was found
+    Name() string                              // human-readable algorithm name
 }
 ```
 

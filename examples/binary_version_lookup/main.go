@@ -43,13 +43,15 @@ func main() {
 	fmt.Printf("%-10s  %-7s  %s\n", "Version", "Index", "Status")
 	fmt.Println("----------  -------  --------")
 
-	s := retrievium.BinarySearcher{}
+	s := retrievium.BinarySearcher[int]{}
 	for _, q := range queries {
-		idx := s.Search(versions, q.encoded)
+		idx, ok := s.Search(versions, q.encoded)
 		status := "released"
-		if idx == -1 {
+		idxStr := fmt.Sprintf("%d", idx)
+		if !ok {
 			status = "not found"
+			idxStr = "-"
 		}
-		fmt.Printf("%-10s  %-7d  %s\n", q.label, idx, status)
+		fmt.Printf("%-10s  %-7s  %s\n", q.label, idxStr, status)
 	}
 }

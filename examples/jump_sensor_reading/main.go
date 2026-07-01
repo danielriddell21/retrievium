@@ -38,13 +38,15 @@ func main() {
 	fmt.Printf("%-28s  %-7s  %s\n", "Query", "Index", "Result")
 	fmt.Println("----------------------------  -------  ------")
 
-	s := retrievium.JumpSearcher{}
+	s := retrievium.JumpSearcher[int]{}
 	for _, q := range queries {
-		idx := s.Search(readings, q.value)
+		idx, ok := s.Search(readings, q.value)
 		result := "not found"
-		if idx != -1 {
+		idxStr := "-"
+		if ok {
 			result = fmt.Sprintf("found at index %d", idx)
+			idxStr = fmt.Sprintf("%d", idx)
 		}
-		fmt.Printf("%-28s  %-7d  %s\n", q.label, idx, result)
+		fmt.Printf("%-28s  %-7s  %s\n", q.label, idxStr, result)
 	}
 }
