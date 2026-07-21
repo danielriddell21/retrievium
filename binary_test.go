@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/danielriddell21/retrievium"
+	"github.com/danielriddell21/retrievium/v2"
 )
 
 func TestBinarySearch(t *testing.T) {

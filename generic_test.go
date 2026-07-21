@@ -3,7 +3,7 @@ package retrievium_test
 import (
 	"testing"
 
-	"github.com/danielriddell21/retrievium"
+	"github.com/danielriddell21/retrievium/v2"
 )
 
 // The searchers are generic, so they search any cmp.Ordered type, not just int.

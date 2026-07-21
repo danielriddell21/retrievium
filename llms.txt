@@ -2,7 +2,7 @@
 
 > A Go library providing 5 searching algorithm implementations behind a single `Searcher` interface. One interface. No haystack required.
 
-retrievium is importable as `github.com/danielriddell21/retrievium`. It has no external dependencies.
+retrievium is importable as `github.com/danielriddell21/retrievium/v2`. It has no external dependencies.
 
 The central interface:
 

@@ -4,7 +4,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/danielriddell21/retrievium"
+	"github.com/danielriddell21/retrievium/v2"
 )
 
 func allSearchers() []retrievium.Searcher[int] {

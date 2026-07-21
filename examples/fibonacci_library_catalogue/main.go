@@ -9,7 +9,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/danielriddell21/retrievium"
+	"github.com/danielriddell21/retrievium/v2"
 )
 
 func main() {

@@ -11,13 +11,13 @@ One interface. No haystack required.
 
 ## Install
 ```sh
-go get github.com/danielriddell21/retrievium@latest
+go get github.com/danielriddell21/retrievium/v2@latest
 ```
 
 ## Quick start
 
 ```go
-import "github.com/danielriddell21/retrievium"
+import "github.com/danielriddell21/retrievium/v2"
 
 s := retrievium.BinarySearcher[int]{}
 idx, ok := s.Search([]int{1, 3, 5, 7, 9}, 7)

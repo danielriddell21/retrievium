@@ -5,7 +5,7 @@ import (
 	"math/rand/v2"
 	"slices"
 
-	"github.com/danielriddell21/retrievium"
+	"github.com/danielriddell21/retrievium/v2"
 )
 
 func sortedSlice(n int) []int {
