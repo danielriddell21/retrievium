@@ -8,9 +8,9 @@ on:
 
 jobs:
   ci:
-    uses: danielriddell21/github-actions/.github/workflows/ci.yaml@v1
+    uses: danielriddell21/github-actions/.github/workflows/ci.yaml@v2
     permissions:
-      contents: write
+      contents: read
     secrets:
       codecov-token: ${{ secrets.CODECOV_TOKEN }}
       tag-token: ${{ secrets.RETRIEVIUM_TOKEN }}
