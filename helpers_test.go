@@ -70,6 +70,7 @@ func checkFindsInLargeSorted(t *testing.T, s retrievium.Searcher[int]) {
 }
 
 func benchmarkSearcher(b *testing.B, s retrievium.Searcher[int]) {
+	b.Helper()
 	for _, size := range []int{100, 1000, 10000} {
 		data := sortedSlice(size)
 		target := data[size/2]
